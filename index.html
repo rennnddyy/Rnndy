@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rendy APK</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(() => console.log("Service Worker Registered"));
+        }
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 300px; margin: auto; padding: 20px; border: 1px solid #000; border-radius: 10px; }
+        .contact { display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; cursor: pointer; }
+        .contact img { width: 30px; height: 30px; margin-right: 10px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Rendy APK</h2>
+        <input type="text" id="search" placeholder="Cari kontak" onkeyup="filterContacts()">
+        <div id="contact-list">
+            <div class="contact" onclick="openWhatsApp('6285810958850')">
+                <img src="icon-192x192.png" alt="icon"> <span>Sayang</span>
+            </div>
+            <div class="contact" onclick="openWhatsApp('625716957498')">
+                <img src="icon-192x192.png" alt="icon"> <span>Rendy</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterContacts() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let contacts = document.querySelectorAll(".contact");
+            contacts.forEach(contact => {
+                contact.style.display = contact.innerText.toLowerCase().includes(input) ? "flex" : "none";
+            });
+        }
+
+        function openWhatsApp(number) {
+            window.open(`https://wa.me/${number}`, '_blank');
+        }
+    </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((reg) => console.log('Service Worker registered!', reg))
+      .catch((err) => console.log('Service Worker failed to register', err));
+  }
+</script>
+</body>
+</html>
